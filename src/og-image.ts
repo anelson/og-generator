@@ -4,7 +4,7 @@
 
 import { PagesFunction, PagesContext } from "@cloudflare/workers-types";
 
-// Capture the og-metadata.xml file generated as part of the Zola build, as a "text" module
+// Capture the og-metadata.html file generated as part of the Zola build, as a "text" module
 // so that we can refer to it to look up metadata for the post whose OG image we're generating.
 //
 // Despite the misleading ".html" extension, this is JSON.  But Cloudflare's
@@ -109,7 +109,7 @@ export async function generate_og_image(
     cacheKey = "default";
   }
 
-  // Create a hash of the metadata using SHA-256
+  // Create a hash of the metadata using fnv1a
   const metadataHash = fnv1a(JSON.stringify(postMetadata));
 
   // Combine the path and metadata hash for the final cache key
