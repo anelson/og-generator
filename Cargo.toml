@@ -38,5 +38,10 @@ strip = true      # Strip symbols from binary
 # Optimize all dependencies even in debug builds
 opt-level = 3
 
+# As of 2025-08-13, wasm-pack is at version 0.13.1, which doesn't know about
+# recent changes to the Rust toolchain to generate more modern WASM instructions, symbols
+# it doesn't know to pass `--enable-bulk-memory` to wasm-opt.  At some point hopefully a newer 
+# version of wasm-pack won't require this
 [package.metadata.wasm-pack.profile.release]
-wasm-opt = ['-Oz']
+wasm-opt = ["-Oz", "--enable-bulk-memory"]
+
